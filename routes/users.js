@@ -74,7 +74,6 @@ var router = express.Router();
 
 /* GET users listing. */
 router.post('/signup', function (req, res, next) {
-  res.send('respond with a resource');
+  res.json({ message: 'Response Here', data: req.body });
 });
-router.login('/login')
 module.exports = router;
