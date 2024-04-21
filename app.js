@@ -4,38 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var dotenv = require('dotenv').config();
-var swaggerJsdoc = require("swagger-jsdoc");
-var swaggerUi = require("swagger-ui-express");
+const setupSwaggerDocs = require('./config/swagger');
 
-var swaggerOptions = {
-  "definition": {
-    "openapi": "3.0.1",
-    "info": {
-      "title": "Vetnexus API Documentation",
-      "version": "0.1.0",
-      "description": "This is a API Documentation for Vetnexus",
-      "license": {
-        "name": "MIT",
-        "url": "https://spdx.org/licenses/MIT.html"
-      },
-      "contact": {
-        "name": "Vetnexus",
-        "url": "https://www.vetnexus.com.au/",
-        "email": "info@vetnexus.com"
-      }
-    },
-    "servers": [
-      {
-        "url": "http://localhost:3000"
-      }
-    ]
-  },
-  "apis": ["./routes/*.js"]
-};
-const specs = swaggerJsdoc(swaggerOptions);
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./config/routes');
+var usersRouter = require('./src/routes/users');
+const routes = require('./config/routes');
 
 var app = express();
 
@@ -49,14 +22,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(specs, { explorer: true })
-);
-
-app.use('/', indexRouter);
-app.use('/auth', usersRouter);
+setupSwaggerDocs(app);
+routes(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

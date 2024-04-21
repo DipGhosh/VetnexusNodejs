@@ -70,10 +70,10 @@
  *
  */
 var express = require('express');
-var router = express.Router();
+var userRouter = express.Router();
 
 /* GET users listing. */
-router.post('/signup', function (req, res, next) {
+userRouter.post('/signup', function (req, res, next) {
   res.json({ message: 'Response Here', data: req.body });
 });
-module.exports = router;
+module.exports = userRouter;
