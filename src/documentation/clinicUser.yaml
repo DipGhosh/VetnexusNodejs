@@ -26,7 +26,7 @@ components:
           schema:
             $ref: "#/components/schemas/clinicUser"
           example:
-            email: "kartik@gmail.com"
+            email: "kartik26@gmail.com"
             password: "kartik"
     responses:
       200:
@@ -52,7 +52,7 @@ components:
           schema:
             $ref: "#/components/schemas/clinicUser"
           example:
-            email: "kartik@gmail.com"
+            email: "kartik26@gmail.com"
             password: "kartik"
     responses:
       200:

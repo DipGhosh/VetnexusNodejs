@@ -39,7 +39,7 @@ module.exports = {
             if (!match) {
                 return res.status(400).json({ message: "Invalid password" });
             }
-            const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ email: user.email, userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
             return res.status(200).json({ message: "Login successful", data: { token } });
         } catch (error) {
             return res.status(500).json({ message: error.message });
@@ -47,14 +47,9 @@ module.exports = {
     },
     userDetails: async (req, res) => {
         try {
-            const token = req.headers.authorization.split(" ")[1];
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            const user = await
-                ClinicUser.findOne({ email: decoded.email }).select("-password");
-
             return res.status(200).json({
                 message: "Login verified", data:
-                    user
+                    req.user
 
             });
         } catch (error) {
