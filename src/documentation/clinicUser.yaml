@@ -1,6 +1,6 @@
 tags:
-  name: Clinic User Apis
-  description: The User related API
+  - name: Clinic User Apis
+    description: The User related API
 components:
   schemas:
     clinicUser:
@@ -15,66 +15,170 @@ components:
         password:
           type: string
           description: The password of your Personal
-/clinic/user/signup:
-  post:
-    security: []
-    summary: Create a new User
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/clinicUser"
-          example:
-            email: "kartik26@gmail.com"
-            password: "kartik"
-    responses:
-      200:
-        description: The user is created
-        required: true
-        content:
-          application/json:
-            schemas:
-              $ref: "#/components/schemas/clinicUser"
-          example:
-      400:
-        description: user Already Exists
-      500:
-        description: Some server error
-/clinic/user/login:
-  post:
-    security: []
-    summary: Login User
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/clinicUser"
-          example:
-            email: "kartik26@gmail.com"
-            password: "kartik"
-    responses:
-      200:
-        description: The user is logged In
-        required: true
-        content:
-          application/json:
-            schemas:
-              $ref: "#/components/schemas/clinicUser"
-          example:
-      400:
-        description: user Already Exists
-      500:
-        description: Some server error
-/clinic/user/me:
-  get:
-    summary: Login User
-    responses:
-      200:
-        description: The user information
+        alreadyTreated:
+          type: boolean
+          description: Indicates whether the user has been already treated
+          default: false
+        clinic_identifier:
+          type: string
+          description: Identifier for the clinic
+        accountDetails:
+          type: object
+          properties:
+            firstName:
+              type: string
+              description: First name of the user
+            lastName:
+              type: string
+              description: Last name of the user
+            veterinarianName:
+              type: string
+              description: Name of the veterinarian associated with the user
+            contactNumber:
+              type: string
+              description: Contact number of the user
+            username:
+              type: string
+              description: Username of the user
+        petDetails:
+          type: array
+          items:
+            type: object
+            properties:
+              species:
+                type: string
+                description: Species of the pet
+              petName:
+                type: string
+                description: Name of the pet
+              sex:
+                type: string
+                description: Sex of the pet
+              breed:
+                type: string
+                description: Breed of the pet
+              sterilization_type:
+                type: string
+                description: Sterilization type of the pet
+              food_allergies:
+                type: string
+                description: Any food allergies of the pet
+              life_stage:
+                type: string
+                description: Life stage of the pet
+              body_condition:
+                type: string
+                description: Body condition of the pet
+              weight:
+                type: string
+                description: Weight of the pet
+              activity_level:
+                type: string
+                description: Activity level of the pet
+              present_health:
+                type: string
+                description: Present health condition of the pet
+              health_concerns:
+                type: string
+                description: Any health concerns of the pet
+              last_visit_to_vet:
+                type: string
+                description: Last visit date to the vet
+              daily_food_intake:
+                type: string
+                description: Daily food intake of the pet
+              current_food_brand:
+                type: string
+                description: Current food brand of the pet
+              pet_photo:
+                type: string
+                description: URL or path to the pet's photo
+              daily_treat_feedings:
+                type: string
+                description: Daily treat feedings for the pet
 
-      400:
-        description: user not found
-      500:
-        description: Some server error
+paths:
+  /clinic/user/signup:
+    post:
+      summary: Create a new User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/clinicUser"
+            example:
+              email: "kartik123456@gmail.com"
+              password: "kartik_shikhare"
+              alreadyTreated: false
+              clinic_identifier: "12345"
+              accountDetails:
+                firstName: "Kartik"
+                lastName: "Sharma"
+                veterinarianName: "Dr. Smith"
+                contactNumber: "1234567890"
+                username: "kartik123"
+              petDetails:
+                - species: "Dog"
+                  petName: "Max"
+                  sex: "Male"
+                  breed: "Labrador Retriever"
+                  sterilization_type: "Neutered"
+                  food_allergies: "None"
+                  life_stage: "Adult"
+                  body_condition: "Healthy"
+                  weight: "25 kg"
+                  activity_level: "Active"
+                  present_health: "No current issues"
+                  health_concerns: "None"
+                  last_visit_to_vet: "2023-12-15"
+                  daily_food_intake: "300g"
+                  current_food_brand: "Royal Canin"
+                  pet_photo: "https://example.com/max_photo.jpg"
+                  daily_treat_feedings: "2 treats per day"
+      responses:
+        "200":
+          description: The user is created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/clinicUser"
+        "400":
+          description: user Already Exists
+        "500":
+          description: Some server error
+
+  /clinic/user/login:
+    post:
+      summary: Login User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/clinicUser"
+            example:
+              email: "kartik123456@gmail.com"
+              password: "kartik_shikhare"
+      responses:
+        "200":
+          description: The user is logged In
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/clinicUser"
+        "400":
+          description: user Already Exists
+        "500":
+          description: Some server error
+
+  /clinic/user/me:
+    get:
+      summary: Get User Information
+      responses:
+        "200":
+          description: The user information
+        "400":
+          description: user not found
+        "500":
+          description: Some server error

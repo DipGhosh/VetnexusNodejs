@@ -17,8 +17,9 @@ module.exports = {
                 return res.status(400).json(failedResponse({ message: "User Already Exists" }));
             }
             const hashedPassword = await bcrypt.hash(password, 10);
+            req.body.password = hashedPassword;
+            const newUser = { ...req.body };
 
-            const newUser = { password: hashedPassword, ...req.body };
             const data = await ClinicUser.create(newUser);
 
             return res.status(201).json(successResponse({ message: "User created successfully" }));
@@ -29,6 +30,7 @@ module.exports = {
     login: async (req, res) => {
         try {
             const { email, password } = req.body;
+
             if (!email || !password) {
                 return res.status(400).json({ message: "Email and password are required" });
             }

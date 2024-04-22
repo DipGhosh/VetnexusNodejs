@@ -12,7 +12,6 @@ const clinicUserProtect = async (req, res, next) => {
     if (splitToken === 'Bearer') {
         // bearer token logic
         const decoded = jwt.verify(embeddedToken, process.env.JWT_SECRET);
-        console.log(decoded);
         const user = await
             ClinicUser.findById(decoded.userId).select("-password");
         if (!user) {
