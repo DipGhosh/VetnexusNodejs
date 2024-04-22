@@ -4,10 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var dotenv = require('dotenv').config();
-const setupSwaggerDocs = require('./config/swagger');
 
-var indexRouter = require('./config/routes');
-var usersRouter = require('./src/routes/users');
+const setupSwaggerDocs = require('./config/swagger');
 const routes = require('./config/routes');
 const connectToDatabase = require('./config/db');
 
