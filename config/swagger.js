@@ -47,7 +47,8 @@ function setupSwaggerDocs(app) {
                 }
             ]
         },
-        "apis": ["./src/routes/*.js", "./src/documentation/*.js", "./src/models/*.js", "./src/controllers/*.js", "./src/middleware/*.js"],
+        // include all with yaml
+        "apis": ["./src/routes/*.js", "./src/documentation/*.yaml", "./src/models/*.js", "./src/controllers/*.js", "./src/middleware/*.js"],
     };
     const specs = swaggerJsdoc(swaggerOptions);
     app.use(

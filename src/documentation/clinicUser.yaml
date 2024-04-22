@@ -1,0 +1,80 @@
+tags:
+  name: Clinic User Apis
+  description: The User related API
+components:
+  schemas:
+    clinicUser:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          description: The email of your Personal
+        password:
+          type: string
+          description: The password of your Personal
+/clinic/user/signup:
+  post:
+    security: []
+    summary: Create a new User
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/clinicUser"
+          example:
+            email: "kartik@gmail.com"
+            password: "kartik"
+    responses:
+      200:
+        description: The user is created
+        required: true
+        content:
+          application/json:
+            schemas:
+              $ref: "#/components/schemas/clinicUser"
+          example:
+      400:
+        description: user Already Exists
+      500:
+        description: Some server error
+/clinic/user/login:
+  post:
+    security: []
+    summary: Login User
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/clinicUser"
+          example:
+            email: "kartik@gmail.com"
+            password: "kartik"
+    responses:
+      200:
+        description: The user is logged In
+        required: true
+        content:
+          application/json:
+            schemas:
+              $ref: "#/components/schemas/clinicUser"
+          example:
+      400:
+        description: user Already Exists
+      500:
+        description: Some server error
+/clinic/user/me:
+  get:
+    summary: Login User
+    responses:
+      200:
+        description: The user information
+
+      400:
+        description: user not found
+      500:
+        description: Some server error
