@@ -9,6 +9,7 @@ const setupSwaggerDocs = require('./config/swagger');
 var indexRouter = require('./config/routes');
 var usersRouter = require('./src/routes/users');
 const routes = require('./config/routes');
+const connectToDatabase = require('./config/db');
 
 var app = express();
 
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+connectToDatabase();
 setupSwaggerDocs(app);
 routes(app);
 
