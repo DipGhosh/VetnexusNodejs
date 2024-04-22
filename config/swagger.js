@@ -1,3 +1,4 @@
+const { json } = require("express");
 var swaggerJsdoc = require("swagger-jsdoc");
 var swaggerUi = require("swagger-ui-express");
 
@@ -46,7 +47,7 @@ function setupSwaggerDocs(app) {
                 }
             ]
         },
-        "apis": ["./src/routes/*.js", "./src/models/*.js", "./src/controllers/*.js", "./src/middleware/*.js"]
+        "apis": ["./src/routes/*.js", "./src/documentation/*.js", "./src/models/*.js", "./src/controllers/*.js", "./src/middleware/*.js"],
     };
     const specs = swaggerJsdoc(swaggerOptions);
     app.use(
