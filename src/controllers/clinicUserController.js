@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 module.exports = {
     signup: async (req, res) => {
         try {
+
             const { email, password } = req.body;
             if (!email || !password) {
                 return res.status(400).json(failedResponse({ message: "Email and password are required" }));
@@ -17,7 +18,7 @@ module.exports = {
             }
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            const newUser = { email, password: hashedPassword };
+            const newUser = { password: hashedPassword, ...req.body };
             const data = await ClinicUser.create(newUser);
 
             return res.status(201).json(successResponse({ message: "User created successfully" }));
