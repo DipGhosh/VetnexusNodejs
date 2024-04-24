@@ -101,6 +101,7 @@ paths:
   /clinic/user/signup:
     post:
       summary: Create a new User
+      security: []
       requestBody:
         required: true
         content:
@@ -151,6 +152,7 @@ paths:
   /clinic/user/login:
     post:
       summary: Login User
+      security: []
       requestBody:
         required: true
         content:
