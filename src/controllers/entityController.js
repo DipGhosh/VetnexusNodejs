@@ -1,4 +1,3 @@
-const { validateBody } = require("../middlewares/validateBody")
 const { successResponse, failedResponse } = require("../utils/responses")
 
 module.exports = {
